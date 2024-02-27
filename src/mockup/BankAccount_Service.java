@@ -35,14 +35,18 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     }
 
     @Override
-    public void deposit(BankAccount account, double amount) {
+    public boolean deposit(BankAccount account, double amount) {
         this.currentAccount.balance += amount;
-
+        return true;
     }
 
     @Override
-    public void withdraw(BankAccount account, double amount) {
+    public boolean withdraw(BankAccount account, double amount) {
+        if (this.currentAccount.balance < amount) {
+            return false;
+        }
         this.currentAccount.balance -= amount;
+        return true;
     }
 
     public BankAccount_Service getInstance(){

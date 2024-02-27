@@ -26,13 +26,13 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     }
 
     @Override
-    public void deposit(BankAccount account, double amount) {
-
+    public boolean deposit(BankAccount account, double amount) {
+        return false;
     }
 
     @Override
-    public void withdraw(BankAccount account, double amount) {
-
+    public boolean withdraw(BankAccount account, double amount) {
+        return false;
     }
 
     public BankAccount_Service getInstance(){
