@@ -1,6 +1,6 @@
-package interfaces;
+package dev.iesfranciscodelosrios.atm_client.interfaces;
 
-import model.BankAccount;
+import dev.iesfranciscodelosrios.atm_client.model.BankAccount;
 
 public interface iBankAccountService {
     /**

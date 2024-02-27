@@ -1,4 +1,4 @@
-package model;
+package dev.iesfranciscodelosrios.atm_client.model;
 
 public class BankAccount {
 
