@@ -1,0 +1,13 @@
+Login & register -> Ver cuenta bancaria -> Ingresar dinero -> Sacar dinero -> Salir
+
+
+BankAccount {
+
+	iban
+	dni
+	name
+	surname
+	pin
+	balance
+
+}
