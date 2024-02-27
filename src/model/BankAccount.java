@@ -3,9 +3,10 @@ package model;
 public class BankAccount {
 
     public String name;
+    public String surname;
     public String dni;
     public double balance;
-    public String IBAN;
+    public int IBAN;
     public int Pin;
 
 }
