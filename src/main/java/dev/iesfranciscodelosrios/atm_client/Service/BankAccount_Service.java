@@ -1,5 +1,6 @@
 package dev.iesfranciscodelosrios.atm_client.Service;
 
+import dev.iesfranciscodelosrios.atm_client.Connection.Socket;
 import dev.iesfranciscodelosrios.atm_client.interfaces.iBankAccountService;
 import dev.iesfranciscodelosrios.atm_client.interfaces.iTransactionService;
 import dev.iesfranciscodelosrios.atm_client.model.BankAccount;
@@ -8,8 +9,11 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     public dev.iesfranciscodelosrios.atm_client.model.BankAccount currentAccount; // Objeto con la información de la cuenta actual
 
     public BankAccount_Service _instance;
+    public Socket socket;
 
-    private BankAccount_Service(){}
+    private BankAccount_Service(){
+        this.socket = new Socket();
+    }
     @Override
     public boolean login(dev.iesfranciscodelosrios.atm_client.model.BankAccount account) {
         return false;
