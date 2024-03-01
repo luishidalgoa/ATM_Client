@@ -1,8 +1,11 @@
 package dev.iesfranciscodelosrios.atm_client.Controller;
 
+import dev.iesfranciscodelosrios.atm_client.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 public class LoginController {
 
@@ -23,8 +26,8 @@ public class LoginController {
 
     }
     @FXML
-    private void Register(){
-
+    private void Register() throws IOException {
+        Main.setRoot("register");
     }
 
 
