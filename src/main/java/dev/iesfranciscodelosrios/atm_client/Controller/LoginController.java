@@ -29,6 +29,4 @@ public class LoginController {
     private void register() throws IOException {
         Main.setRoot("register");
     }
-
-
 }

@@ -22,7 +22,7 @@ public class Main extends Application {
         this.stage.show();
         stage.setResizable(false);
         stage.setTitle("Santander");
-
+        stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("photo/logo.png"))));
     }
 
     public static void setRoot(String fxml) throws IOException {
