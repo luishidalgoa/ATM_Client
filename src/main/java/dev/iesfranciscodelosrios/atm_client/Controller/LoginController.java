@@ -22,11 +22,11 @@ public class LoginController {
     private Button register_btn;
 
     @FXML
-    private void Login(){
+    private void login(){
 
     }
     @FXML
-    private void Register() throws IOException {
+    private void register() throws IOException {
         Main.setRoot("register");
     }
 

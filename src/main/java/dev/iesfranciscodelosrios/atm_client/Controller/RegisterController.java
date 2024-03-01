@@ -36,7 +36,7 @@ public class RegisterController {
     }
 
     @FXML
-    private void exit() throws IOException{
+    private void Exit() throws IOException{
         Main.setRoot("Login");
     }
 
