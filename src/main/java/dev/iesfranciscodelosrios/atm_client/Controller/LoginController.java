@@ -22,12 +22,10 @@ public class LoginController {
     private void Login(){
 
     }
-
     @FXML
     private void Register(){
 
     }
-
 
 
 }
