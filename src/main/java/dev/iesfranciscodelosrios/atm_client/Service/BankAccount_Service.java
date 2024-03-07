@@ -57,7 +57,16 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
 
     @Override
     public BankAccount register(BankAccount account) {
-        return null;
+        try {
+            outToServer.writeObject("register");
+            outToServer.writeObject(account);
+            // Esperar respuesta del servidor
+            return (BankAccount) inFromServer.readObject();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
