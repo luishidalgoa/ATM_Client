@@ -20,6 +20,10 @@ public class BankAccount {
         this.Pin = Pin;
     }
 
+    public BankAccount() {
+
+    }
+
     public String getName() {
         return name;
     }

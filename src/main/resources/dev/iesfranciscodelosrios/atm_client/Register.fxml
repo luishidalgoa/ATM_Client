@@ -25,43 +25,34 @@
                   <Font name="Arial" size="36.0" />
                </font>
             </Label>
-            <TextField fx:id="name_text" layoutX="165.0" layoutY="123.0" prefHeight="25.0" prefWidth="199.0" style="-fx-border-color: #ec1c24; -fx-border-radius: 2;">
+            <TextField fx:id="name_text" layoutX="171.0" layoutY="140.0" prefHeight="25.0" prefWidth="199.0" style="-fx-border-color: #ec1c24; -fx-border-radius: 2;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <TextField fx:id="surname_text" layoutX="165.0" layoutY="179.0" prefHeight="25.0" prefWidth="199.0" style="-fx-border-color: #ec1c24; -fx-border-radius: 2;">
+            <TextField fx:id="surname_text" layoutX="171.0" layoutY="196.0" prefHeight="25.0" prefWidth="199.0" style="-fx-border-color: #ec1c24; -fx-border-radius: 2;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Label alignment="CENTER" layoutX="36.0" layoutY="118.0" prefHeight="36.0" prefWidth="120.0" text="Nombre" textFill="#ec1c24">
+            <Label alignment="CENTER" layoutX="42.0" layoutY="135.0" prefHeight="36.0" prefWidth="120.0" text="Nombre" textFill="#ec1c24">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="36.0" layoutY="174.0" prefHeight="36.0" prefWidth="120.0" text="Apellidos" textFill="#ec1c24">
+            <Label alignment="CENTER" layoutX="42.0" layoutY="191.0" prefHeight="36.0" prefWidth="120.0" text="Apellidos" textFill="#ec1c24">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="iban_text" layoutX="165.0" layoutY="283.0" prefHeight="25.0" prefWidth="199.0" style="-fx-border-color: #ec1c24; -fx-border-radius: 2;">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor></TextField>
-            <Label alignment="CENTER" layoutX="36.0" layoutY="278.0" prefHeight="36.0" prefWidth="120.0" text="IBAN" textFill="#ec1c24">
+            <Label alignment="CENTER" layoutX="38.0" layoutY="306.0" prefHeight="36.0" prefWidth="120.0" text="PIN" textFill="#ec1c24">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="36.0" layoutY="333.0" prefHeight="36.0" prefWidth="120.0" text="PIN" textFill="#ec1c24">
-               <font>
-                  <Font name="Arial" size="20.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="pin_text" layoutX="165.0" layoutY="338.0" prefHeight="25.0" prefWidth="199.0" style="-fx-border-color: #ec1c24; -fx-border-radius: 2;">
+            <PasswordField fx:id="pin_text" layoutX="167.0" layoutY="311.0" prefHeight="25.0" prefWidth="199.0" style="-fx-border-color: #ec1c24; -fx-border-radius: 2;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></PasswordField>
-            <Button fx:id="register_btn" layoutX="57.0" layoutY="403.0" mnemonicParsing="false" onAction="#User_register" prefHeight="51.0" prefWidth="147.0" style="-fx-background-color: #ec1c24;" text="Registrarse" textFill="#fffcfc">
+            <Button fx:id="register_btn" layoutX="42.0" layoutY="382.0" mnemonicParsing="false" onAction="#User_register" prefHeight="51.0" prefWidth="147.0" style="-fx-background-color: #ec1c24;" text="Registrarse" textFill="#fffcfc">
                <font>
                   <Font name="Arial Bold" size="20.0" />
                </font>
@@ -69,16 +60,16 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TextField fx:id="dni_text" layoutX="165.0" layoutY="228.0" prefHeight="25.0" prefWidth="199.0" style="-fx-border-color: #ec1c24; -fx-border-radius: 2;">
+            <TextField fx:id="dni_text" layoutX="171.0" layoutY="245.0" prefHeight="25.0" prefWidth="199.0" style="-fx-border-color: #ec1c24; -fx-border-radius: 2;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Label alignment="CENTER" layoutX="36.0" layoutY="223.0" prefHeight="36.0" prefWidth="120.0" text="DNI" textFill="#ec1c24">
+            <Label alignment="CENTER" layoutX="42.0" layoutY="240.0" prefHeight="36.0" prefWidth="120.0" text="DNI" textFill="#ec1c24">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <Button fx:id="exit_btn" alignment="CENTER" layoutX="295.0" layoutY="403.0" mnemonicParsing="false" onAction="#Exit" prefHeight="45.0" prefWidth="93.0" style="-fx-background-color: #ec1c24;" text="🔙" textFill="WHITE">
+            <Button fx:id="exit_btn" alignment="CENTER" layoutX="280.0" layoutY="382.0" mnemonicParsing="false" onAction="#Exit" prefHeight="45.0" prefWidth="93.0" style="-fx-background-color: #ec1c24;" text="🔙" textFill="WHITE">
                <font>
                   <Font name="Arial" size="28.0" />
                </font>

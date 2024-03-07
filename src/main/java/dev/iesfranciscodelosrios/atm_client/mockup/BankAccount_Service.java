@@ -7,7 +7,7 @@ import dev.iesfranciscodelosrios.atm_client.model.BankAccount;
 public class BankAccount_Service implements iBankAccountService, iTransactionService {
     public dev.iesfranciscodelosrios.atm_client.model.BankAccount currentAccount; // Objeto con la información de la cuenta actual
 
-    public BankAccount_Service _instance;
+    public static BankAccount_Service _instance;
 
     private BankAccount_Service(){}
     @Override
@@ -49,7 +49,7 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
         return true;
     }
 
-    public BankAccount_Service getInstance(){
+    public static BankAccount_Service getInstance(){
         if(_instance == null){
             _instance = new BankAccount_Service();
         }

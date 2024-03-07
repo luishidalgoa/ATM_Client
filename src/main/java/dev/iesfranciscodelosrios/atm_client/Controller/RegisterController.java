@@ -1,6 +1,8 @@
 package dev.iesfranciscodelosrios.atm_client.Controller;
 
 import dev.iesfranciscodelosrios.atm_client.Main;
+import dev.iesfranciscodelosrios.atm_client.mockup.BankAccount_Service;
+import dev.iesfranciscodelosrios.atm_client.model.BankAccount;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -19,9 +21,6 @@ public class RegisterController {
     private TextField dni_text;
 
     @FXML
-    private TextField iban_text;
-
-    @FXML
     private TextField pin_text;
 
     @FXML
@@ -30,15 +29,44 @@ public class RegisterController {
     @FXML
     private Button cancel_btn;
 
+    private BankAccount_Service bankAccountService = BankAccount_Service.getInstance();
+
     @FXML
     private void User_register() throws IOException {
-        Main.setRoot("Login");
+        // Retrieve data from TextFields
+        String name = name_text.getText();
+        String surname = surname_text.getText();
+        String dni = dni_text.getText();
+        String pinText = pin_text.getText();
+
+        // Validate and convert pinText to an integer
+        int pin = 0;
+        try {
+            pin = Integer.parseInt(pinText);
+        } catch (NumberFormatException e) {
+            // Handle invalid pin input
+            System.out.println("Invalid PIN format");
+            return;
+        }
+
+        // Create a BankAccount object with the retrieved data
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setName(name);
+        bankAccount.setSurname(surname);
+        bankAccount.setDni(dni);
+        bankAccount.setPin(pin);
+
+        // Call the register method from BankAccount_Service
+        BankAccount registeredAccount = bankAccountService.register(bankAccount);
+
+        // Other logic...
+
+        // Navigate to the Login screen
+        Main.setRoot("home");
     }
 
     @FXML
-    private void Exit() throws IOException{
+    private void Exit() throws IOException {
         Main.setRoot("Login");
     }
-
-
 }
