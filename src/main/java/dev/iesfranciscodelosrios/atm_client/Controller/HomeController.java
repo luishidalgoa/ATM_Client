@@ -1,6 +1,7 @@
 package dev.iesfranciscodelosrios.atm_client.Controller;
 
 import dev.iesfranciscodelosrios.atm_client.Main;
+import dev.iesfranciscodelosrios.atm_client.mockup.BankAccount_Service;
 import dev.iesfranciscodelosrios.atm_client.model.BankAccount;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class HomeController {
     Main main = new Main();
@@ -44,7 +46,7 @@ public class HomeController {
     private TextField withdrawMoney;
     @FXML
     private Label message;
-
+    private BankAccount_Service bankAccountService;
 
     @FXML
     public void handleActivateExtract() {
@@ -67,94 +69,96 @@ public class HomeController {
 
     @FXML
     public void insetMoney() {
-        // Obtener el valor del campo insertMoney
         String amountText = insertMoney.getText();
-
-        // Verificar si el campo insertMoney no está vacío
         if (!amountText.isEmpty()) {
             try {
-                // Convertir el texto del campo insertMoney a double
                 double amount = Double.parseDouble(amountText);
-
-                // Realizar la operación de inserción en la cuenta bancaria aquí
-                // (Por ejemplo, actualizar el saldo de la cuenta)
-
-                // Mostrar un mensaje de éxito
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setTitle("Éxito");
-                alert.setHeaderText(null);
-                alert.setContentText("Inserción de dinero con éxito");
-                alert.showAndWait();
+                BankAccount currentAccount = bankAccountService.currentAccount;
+                if (currentAccount != null) {
+                    if (verifyPIN()) {
+                        bankAccountService.deposit(currentAccount, amount);
+                        // Actualizar la vista o mostrar mensaje de éxito
+                        updateView("Inserción de dinero con éxito");
+                    } else {
+                        showError("PIN incorrecto");
+                    }
+                }
             } catch (NumberFormatException e) {
-                // Mostrar un mensaje de error si el formato del monto es incorrecto
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Formato de cantidad incorrecto (Debe ser un número)");
-                alert.showAndWait();
+                showError("Formato de cantidad incorrecto (Debe ser un número)");
             }
         } else {
-            // Mostrar un mensaje de error si el campo insertMoney está vacío
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor, introduzca una cantidad");
-            alert.showAndWait();
+            showError("Por favor, introduzca una cantidad");
         }
     }
+
     @FXML
-    public void withdrawmoney() { // Obtener el valor del campo insertMoney
+    public void withdrawmoney() {
         String amountText = withdrawMoney.getText();
-
-        // Verificar si el campo insertMoney no está vacío
         if (!amountText.isEmpty()) {
             try {
-                // Convertir el texto del campo insertMoney a double
                 double amount = Double.parseDouble(amountText);
-
-                // Realizar la operación de inserción en la cuenta bancaria aquí
-                // (Por ejemplo, actualizar el saldo de la cuenta)
-
-                // Mostrar un mensaje de éxito
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setTitle("Éxito");
-                alert.setHeaderText(null);
-                alert.setContentText("dinero extraido con éxito");
-                alert.showAndWait();
+                BankAccount currentAccount = bankAccountService.currentAccount;
+                if (currentAccount != null) {
+                    if (verifyPIN()) {
+                        boolean success = bankAccountService.withdraw(currentAccount, amount);
+                        if (success) {
+                            // Actualizar la vista o mostrar mensaje de éxito
+                            updateView("Dinero extraído con éxito");
+                        } else {
+                            showError("Saldo insuficiente");
+                        }
+                    } else {
+                        showError("PIN incorrecto");
+                    }
+                }
             } catch (NumberFormatException e) {
-                // Mostrar un mensaje de error si el formato del monto es incorrecto
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Formato de cantidad incorrecto (Debe ser un número)");
-                alert.showAndWait();
+                showError("Formato de cantidad incorrecto (Debe ser un número)");
             }
         } else {
-            // Mostrar un mensaje de error si el campo insertMoney está vacío
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor, introduzca una cantidad");
-            alert.showAndWait();
+            showError("Por favor, introduzca una cantidad");
         }
     }
 
-    /**private void buttonExit() throws IOException {
-     main.root("login.fxml");
-     }*/
+    private boolean verifyPIN() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Verificar PIN");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Ingrese el PIN de la cuenta:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            String enteredPIN = result.get();
+            BankAccount currentAccount = bankAccountService.currentAccount;
+            return currentAccount != null && String.valueOf(currentAccount.getPin()).equals(enteredPIN);
+        }
+        return false;
+    }
+
+
+    private void updateView(String successMessage) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setTitle("Éxito");
+        alert.setHeaderText(null);
+        alert.setContentText(successMessage);
+        alert.showAndWait();
+        // Aquí puedes agregar código para actualizar la vista, por ejemplo, actualizar el saldo mostrado
+    }
+
+    private void showError(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
+    }
+
     @FXML
     public void initialize() {
-        // Al iniciar, configurar la visibilidad de los AnchorPane a false
         panelInsert.setVisible(false);
         panelInsert.setManaged(false);
         panelWithdraw.setVisible(false);
         panelWithdraw.setManaged(false);
     }
-
 }
