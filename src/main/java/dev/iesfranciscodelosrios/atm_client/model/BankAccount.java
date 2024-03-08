@@ -1,8 +1,9 @@
 package dev.iesfranciscodelosrios.atm_client.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class BankAccount {
+public class BankAccount implements Serializable {
 
     public String name;
     public String surname;

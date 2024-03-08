@@ -22,7 +22,7 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     }
 
     @Override
-    public boolean logout(dev.iesfranciscodelosrios.atm_client.model.BankAccount account) {
+    public boolean logout() {
         this.currentAccount = null;
         return true;
     }
@@ -35,13 +35,13 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     }
 
     @Override
-    public boolean deposit(BankAccount account, double amount) {
+    public boolean deposit(double amount) {
         this.currentAccount.balance += amount;
         return true;
     }
 
     @Override
-    public boolean withdraw(BankAccount account, double amount) {
+    public boolean withdraw(double amount) {
         if (this.currentAccount.balance < amount) {
             return false;
         }

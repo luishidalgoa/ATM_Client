@@ -1,7 +1,7 @@
 package dev.iesfranciscodelosrios.atm_client.Controller;
 
 import dev.iesfranciscodelosrios.atm_client.Main;
-import dev.iesfranciscodelosrios.atm_client.mockup.BankAccount_Service;
+import dev.iesfranciscodelosrios.atm_client.Service.BankAccount_Service;
 import dev.iesfranciscodelosrios.atm_client.model.BankAccount;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -58,11 +58,10 @@ public class RegisterController {
 
         // Call the register method from BankAccount_Service
         BankAccount registeredAccount = bankAccountService.register(bankAccount);
-
-        // Other logic...
-
-        // Navigate to the Login screen
-        Main.setRoot("home");
+        if(registeredAccount != null){
+            bankAccountService.currentAccount = registeredAccount;
+            Main.setRoot("Login");
+        }
     }
 
     @FXML

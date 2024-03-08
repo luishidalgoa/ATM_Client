@@ -11,16 +11,16 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class BankAccount_Service implements iBankAccountService, iTransactionService {
-    public dev.iesfranciscodelosrios.atm_client.model.BankAccount currentAccount; // Objeto con la información de la cuenta actual
+    public BankAccount currentAccount; // Objeto con la información de la cuenta actual
 
-    public BankAccount_Service _instance;
+    private static BankAccount_Service _instance;
     public Socket socket;
     private ObjectOutputStream outToServer;
     private ObjectInputStream inFromServer;
 
     private BankAccount_Service(){
-        this.socket = new Socket();
         try {
+            this.socket = new Socket("localhost",8080);
             this.outToServer = new ObjectOutputStream(socket.getOutputStream());
             this.inFromServer = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
@@ -31,10 +31,13 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     public boolean login(BankAccount account) {
         try {
             outToServer.writeObject("login");
-            outToServer.writeObject(account.IBAN);
+            outToServer.writeObject(account.dni);
             outToServer.writeObject(account.Pin);
+
+            this.currentAccount = (BankAccount) inFromServer.readObject();
+            System.out.println(this.currentAccount);
             // Esperar respuesta del servidor
-            return (boolean) inFromServer.readObject();
+            return currentAccount != null;
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -43,16 +46,9 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     }
 
     @Override
-    public boolean logout(BankAccount account) {
-        try {
-            outToServer.writeObject("logout");
-            // Esperar respuesta del servidor
-            return (boolean) inFromServer.readObject();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public boolean logout() {
+        this.currentAccount = null;
+        return true;
     }
 
     @Override
@@ -61,7 +57,8 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
             outToServer.writeObject("register");
             outToServer.writeObject(account);
             // Esperar respuesta del servidor
-            return (BankAccount) inFromServer.readObject();
+            BankAccount result = (BankAccount) inFromServer.readObject();
+            return result;
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -70,14 +67,19 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     }
 
     @Override
-    public boolean deposit(BankAccount account, double amount) {
+    public boolean deposit(double amount) {
         try {
             outToServer.writeObject("deposit");
-            outToServer.writeObject(account);
+            outToServer.writeObject(this.currentAccount);
             outToServer.writeObject(amount);
             // Esperar respuesta del servidor
             String respuesta = (String) inFromServer.readObject();
-            return respuesta.equals("OK");
+            if(respuesta.equals("OK")){
+                this.currentAccount.balance += amount;
+                return true;
+            }else{
+                return false;
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -86,14 +88,19 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     }
 
     @Override
-    public boolean withdraw(BankAccount account, double amount) {
+    public boolean withdraw(double amount) {
         try {
             outToServer.writeObject("withdraw");
-            outToServer.writeObject(account);
+            outToServer.writeObject(this.currentAccount);
             outToServer.writeObject(amount);
             // Esperar respuesta del servidor
             String respuesta = (String) inFromServer.readObject();
-            return respuesta.equals("OK");
+            if(respuesta.equals("OK")){
+                this.currentAccount.balance -= amount;
+                return true;
+            }else{
+                return false;
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -101,7 +108,7 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
         }
     }
 
-    public BankAccount_Service getInstance(){
+    public static BankAccount_Service getInstance(){
         if(_instance == null){
             _instance = new BankAccount_Service();
         }

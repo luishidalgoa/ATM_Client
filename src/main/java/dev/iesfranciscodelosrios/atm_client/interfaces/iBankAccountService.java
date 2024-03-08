@@ -15,7 +15,7 @@ public interface iBankAccountService {
      * @param account cuenta bancaria
      * @return true si el usuario se deslogeo correctamente
      */
-    public boolean logout(BankAccount account);
+    public boolean logout();
 
     /**
      * Le enviara los datos rellenados del formulario de registro a la aplicacion servidor para que se registre el usuario

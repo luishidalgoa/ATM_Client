@@ -1,7 +1,7 @@
 package dev.iesfranciscodelosrios.atm_client.Controller;
 
 import dev.iesfranciscodelosrios.atm_client.Main;
-import dev.iesfranciscodelosrios.atm_client.mockup.BankAccount_Service;
+import dev.iesfranciscodelosrios.atm_client.Service.BankAccount_Service;
 import dev.iesfranciscodelosrios.atm_client.model.BankAccount;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -51,8 +51,12 @@ public class LoginController {
 
         // Check the login result
         if (loginSuccessful) {
-            // Navigate to the next screen (assuming success)
             System.out.println("Login successful");
+            try {
+                Main.setRoot("home");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             // Main.setRoot("NextScreen");
         } else {
             // Handle login failure
