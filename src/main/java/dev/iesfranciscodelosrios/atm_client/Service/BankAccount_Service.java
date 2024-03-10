@@ -18,6 +18,8 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     private ObjectOutputStream outToServer;
     private ObjectInputStream inFromServer;
 
+    // Constructor privado para evitar la creación de instancias fuera de la clase
+
     private BankAccount_Service(){
         try {
             this.socket = new Socket("localhost",8080);
@@ -27,6 +29,8 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
             throw new RuntimeException(e);
         }
     }
+
+    /** Método para realizar el inicio de sesión */
     @Override
     public boolean login(BankAccount account) {
         try {
@@ -45,11 +49,14 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
         }
     }
 
+    /** Método para realizar el cierre de sesión */
     @Override
     public boolean logout() {
         this.currentAccount = null;
         return true;
     }
+
+    /** Método para registrar una nueva cuenta */
 
     @Override
     public BankAccount register(BankAccount account) {
@@ -65,7 +72,7 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
             throw new RuntimeException(e);
         }
     }
-
+    /** Método para realizar un depósito en la cuenta */
     @Override
     public boolean deposit(double amount) {
         try {
@@ -86,7 +93,7 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
             throw new RuntimeException(e);
         }
     }
-
+    /** Método para realizar una retirada de la cuenta */
     @Override
     public boolean withdraw(double amount) {
         try {
@@ -108,6 +115,7 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
         }
     }
 
+    /** Método para obtener una instancia única de la clase BankAccount_Service */
     public static BankAccount_Service getInstance(){
         if(_instance == null){
             _instance = new BankAccount_Service();

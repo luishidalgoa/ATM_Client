@@ -9,7 +9,10 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
 
     public static BankAccount_Service _instance;
 
+
     private BankAccount_Service(){}
+
+    // Método para realizar el inicio de sesión
     @Override
     public boolean login(dev.iesfranciscodelosrios.atm_client.model.BankAccount account) {
         this.currentAccount = account;
@@ -21,12 +24,15 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
         return true;
     }
 
+
+    // Método para realizar el cierre de sesión
     @Override
     public boolean logout() {
         this.currentAccount = null;
         return true;
     }
 
+    // Método para registrar una nueva cuenta
     @Override
     public BankAccount register(BankAccount account) {
         this.currentAccount = account;
@@ -34,12 +40,14 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
         return this.currentAccount;
     }
 
+    // Método para realizar un depósito en la cuenta
     @Override
     public boolean deposit(double amount) {
         this.currentAccount.balance += amount;
         return true;
     }
 
+    // Método para realizar una retirada de la cuenta
     @Override
     public boolean withdraw(double amount) {
         if (this.currentAccount.balance < amount) {
@@ -49,6 +57,7 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
         return true;
     }
 
+    // Método para obtener una instancia única de la clase BankAccount_Service
     public static BankAccount_Service getInstance(){
         if(_instance == null){
             _instance = new BankAccount_Service();
