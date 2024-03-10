@@ -16,6 +16,7 @@ public class BankAccount_Service implements iBankAccountService, iTransactionSer
     @Override
     public boolean login(dev.iesfranciscodelosrios.atm_client.model.BankAccount account) {
         this.currentAccount = account;
+        // Establecer información de la cuenta (simulado)
         this.currentAccount.IBAN = account.IBAN;
         this.currentAccount.dni = "12345678A";
         this.currentAccount.name = "Pepe";
