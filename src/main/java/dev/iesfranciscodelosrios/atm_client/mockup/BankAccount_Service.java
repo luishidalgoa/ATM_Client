@@ -7,7 +7,7 @@ import dev.iesfranciscodelosrios.atm_client.model.BankAccount;
 public class BankAccount_Service implements iBankAccountService, iTransactionService {
     public dev.iesfranciscodelosrios.atm_client.model.BankAccount currentAccount; // Objeto con la información de la cuenta actual
 
-    public static BankAccount_Service _instance;
+    public static BankAccount_Service _instance; // Instancia única de la clase
 
 
     private BankAccount_Service(){}
